@@ -1,5 +1,5 @@
 import { render } from "react-dom";
-import React from "react";
+import * as React from "react";
 
 function test() {
   return import(/* webpackChunkName: 'main-entry' */ "./declare-subapps");

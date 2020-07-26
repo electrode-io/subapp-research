@@ -329,6 +329,34 @@
   top: 1
   $: sha512-kwbcs0jySLxzLsa2nWUAGOd/s21WU1jebrEdtzhsj1D4Yps1EOuyI1Qcu+FD56dL7NRNIJtDDjcqIG22NwkgLw==
   _: 'https://npme.walmart.com/@types/node/-/node-13.13.15.tgz'
+'@types/prop-types':
+ _latest: 15.7.3
+ _:
+  '*': 15.7.3
+ 15.7.3:
+  $: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+  _: 'https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.3.tgz'
+'@types/react':
+ _latest: 16.9.43
+ _:
+  '*,^16.9.43': 16.9.43
+ 16.9.43:
+  top: 1
+  $: sha512-PxshAFcnJqIWYpJbLPriClH53Z2WlJcVZE+NP2etUtWQs2s7yIMj3/LDKZT/5CHJ/F62iyjVCDu2H3jHEXIxSg==
+  _: 'https://registry.npmjs.org/@types/react/-/react-16.9.43.tgz'
+  dependencies:
+   '@types/prop-types': '*'
+   csstype: ^2.2.0
+'@types/react-dom':
+ _latest: 16.9.8
+ _:
+  ^16.9.8: 16.9.8
+ 16.9.8:
+  top: 1
+  $: sha512-ykkPQ+5nFknnlU6lDd947WbQ6TE3NNzbQAkInC2EKY1qeYdTKp7onFusmYZb+ityzx2YviqT6BXSu+LyWWJwcA==
+  _: 'https://registry.npmjs.org/@types/react-dom/-/react-dom-16.9.8.tgz'
+  dependencies:
+   '@types/react': '*'
 '@types/sinon':
  _latest: 9.0.4
  _:
@@ -1703,6 +1731,13 @@ crypto-browserify:
    public-encrypt: ^4.0.0
    randombytes: ^2.0.0
    randomfill: ^1.0.3
+csstype:
+ _latest: 2.6.11
+ _:
+  ^2.2.0: 2.6.11
+ 2.6.11:
+  $: sha512-l8YyEC9NBkSm783PFTvh0FmJy7s5pFKrDp49ZL7zBGX3fWkO+N4EEyan1qqp8cwPLDcD0OSdyY6hAMoxp34JFw==
+  _: 'https://registry.npmjs.org/csstype/-/csstype-2.6.11.tgz'
 cyclist:
  _latest: 1.0.1
  _:

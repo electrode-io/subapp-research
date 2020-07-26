@@ -6,7 +6,7 @@ type TypeSubAppDef = {
   getModule: Function;
   /** Directory where subapp's module locates. Use for server only. Typically __dirname. */
   dir?: string;
-  /** Extra features that the subapp wants.  Should be initialize with the feature provider function */
+  /** Extra features that the subapp wants.  Should be initialized with the feature provider function */
   wantFeatures?: any[];
 };
 
@@ -35,30 +35,50 @@ type TypeSubAppDef = {
  * @param {*} options
  */
 
+type TypeSubAppDefContainer = Record<string, TypeSubAppDef>;
+
 export function declareSubApp(def: TypeSubAppDef) {
   console.log("declare subapp", def.name);
   // @ts-ignore
-  const subapps = (window._subapps = window._subapps || {});
+  const subapps: TypeSubAppDefContainer = (window._subapps = window._subapps || {});
   subapps[def.name] = def;
   return def;
 }
 
-export function serverModule(meta) {
-  return (subapp) => meta;
+type TypeServerModuleOptions = {
+  /**
+   * The directory path, relative to the subapp's declaration, that will contain modules pertaining
+   * to server only.
+   * If it's not provided, then the subapp's module will be loaded from the same location with the
+   * expectation that there is a module named subapp-<name>-server.
+   */
+  path?: string;
+};
+/**
+ * The intent for add on feature is that a module can implement a feature.
+ *
+ * The feature is access through an API function.  The API should return another
+ * function to be called by the subapp system later, and the subapp's info will be
+ * passed.
+ *
+ * @param meta
+ */
+export function serverModule(options: TypeServerModuleOptions) {
+  return (subapp: TypeSubAppDef) => options;
 }
 
 export function ssrFeature(meta) {
-  return (subapp) => meta;
+  return (subapp: TypeSubAppDef) => meta;
 }
 
 export function reduxFeature(meta) {
-  return meta;
+  return (subapp: TypeSubAppDef) => meta;
 }
 
 export function reactRouterFeature(meta) {
-  return meta;
+  return (subapp: TypeSubAppDef) => meta;
 }
 
 export function routingFeature(meta) {
-  return meta;
+  return (subapp: TypeSubAppDef) => meta;
 }
