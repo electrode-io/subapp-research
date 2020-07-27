@@ -25,4 +25,26 @@ Packages are kept locally for experimentation and they are not publish.
 
 To handle the npm workflow locally, [fyn] must be used.
 
+### Bootstrap packages
+
+```bash
+npx fynpo
+```
+
+Or bootstrap a specific package: `npx fynpo bootstrap --only subapp-plugin`, which will ensure all local dependencies are also bootstrapped.
+
+### Testing the app
+
+After packages are bootstrapped, go into `app` and run:
+
+```
+cd app
+fyn
+npx webpack-dev-server
+```
+
+Then load `https://localhost:8080/static`
+
+To build with webpack: `npx webpack`
+
 [fyn]: https://www.npmjs.com/package/fyn

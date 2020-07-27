@@ -1,14 +1,27 @@
 /** SubApp definition */
-type TypeSubAppDef = {
+type SubAppDef = {
   /** Name of the subapp */
   name: string;
   /** Function that returns the subapp's module through dynamic import */
   getModule: Function;
   /** Directory where subapp's module locates. Use for server only. Typically __dirname. */
   dir?: string;
-  /** Extra features that the subapp wants.  Should be initialized with the feature provider function */
+  /**
+   * Extra features that the subapp wants.  Should be initialized with the feature provider function
+   *
+   * The intent is to allow a module to provide one or more features for a subapp.
+   *
+   * Typically the feature needs to have implementation for server and client side, and exposed
+   * thought the main/browser fields in package.json.
+   *
+   * The feature is access through an API function.  The API should return another
+   * function to be called by the subapp system later, and the subapp's info will be
+   * passed.
+   */
   wantFeatures?: any[];
 };
+
+type SubAppDefContainer = Record<string, SubAppDef>;
 
 /**
  * Declare a subapp.
@@ -35,17 +48,15 @@ type TypeSubAppDef = {
  * @param {*} options
  */
 
-type TypeSubAppDefContainer = Record<string, TypeSubAppDef>;
-
-export function declareSubApp(def: TypeSubAppDef) {
+export function declareSubApp(def: SubAppDef) {
   console.log("declare subapp", def.name);
   // @ts-ignore
-  const subapps: TypeSubAppDefContainer = (window._subapps = window._subapps || {});
+  const subapps: SubAppDefContainer = (window._subapps = window._subapps || {});
   subapps[def.name] = def;
   return def;
 }
 
-type TypeServerModuleOptions = {
+type ServerModuleOptions = {
   /**
    * The directory path, relative to the subapp's declaration, that will contain modules pertaining
    * to server only.
@@ -54,31 +65,28 @@ type TypeServerModuleOptions = {
    */
   path?: string;
 };
+
 /**
- * The intent for add on feature is that a module can implement a feature.
- *
- * The feature is access through an API function.  The API should return another
- * function to be called by the subapp system later, and the subapp's info will be
- * passed.
+ * Add the server module feature to a subapp.
  *
  * @param meta
  */
-export function serverModule(options: TypeServerModuleOptions) {
-  return (subapp: TypeSubAppDef) => options;
+export function serverModule(options: ServerModuleOptions) {
+  return (subapp: SubAppDef) => options;
 }
 
 export function ssrFeature(meta) {
-  return (subapp: TypeSubAppDef) => meta;
+  return (subapp: SubAppDef) => meta;
 }
 
 export function reduxFeature(meta) {
-  return (subapp: TypeSubAppDef) => meta;
+  return (subapp: SubAppDef) => meta;
 }
 
 export function reactRouterFeature(meta) {
-  return (subapp: TypeSubAppDef) => meta;
+  return (subapp: SubAppDef) => meta;
 }
 
 export function routingFeature(meta) {
-  return (subapp: TypeSubAppDef) => meta;
+  return (subapp: SubAppDef) => meta;
 }

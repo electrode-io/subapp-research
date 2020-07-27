@@ -39,9 +39,11 @@
     "@xarc/render-context": "^1.0.0",
     "@xarc/tag-renderer": "^1.0.0",
     "esm": "^3.2.25",
+    "ext-subapp": "../packages/ext-subapp",
     "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "subapp": "../packages/subapp",
     "subapp-plugin": "../packages/subapp-plugin"
   },
   "prettier": {
@@ -49,6 +51,8 @@
   },
   "fyn": {
     "dependencies": {
+      "ext-subapp": "../packages/ext-subapp",
+      "subapp": "../packages/subapp",
       "subapp-plugin": "../packages/subapp-plugin"
     }
   },
