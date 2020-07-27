@@ -2275,6 +2275,16 @@ express:
    type-is: ~1.6.18
    utils-merge: 1.0.1
    vary: ~1.1.2
+ext-subapp:
+ _latest: 1.0.0-fynlocal_h
+ _:
+  ../packages/ext-subapp: 1.0.0-fynlocal_h
+ 1.0.0-fynlocal_h:
+  top: 1
+  $: local
+  _: ../packages/ext-subapp
+  dependencies:
+   subapp: ../subapp
 extend-shallow:
  _latest: 3.0.2
  _:
@@ -5866,6 +5876,14 @@ strip-json-comments:
  2.0.1:
   $: sha1-PFMZQukIwml8DsNEhYwobHygpgo=
   _: 'https://npme.walmart.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz'
+subapp:
+ _latest: 1.0.0-fynlocal_h
+ _:
+  '../packages/subapp,../subapp': 1.0.0-fynlocal_h
+ 1.0.0-fynlocal_h:
+  top: 1
+  $: local
+  _: ../packages/subapp
 subapp-plugin:
  _latest: 1.0.0-fynlocal_h
  _:

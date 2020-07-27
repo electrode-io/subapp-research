@@ -5,20 +5,7 @@ import {
   reduxFeature,
   reactRouterFeature,
   routingFeature,
-} from "./subapp-util";
-
-// @ts-ignore
-const x = __webpack_chunk_load__;
-
-console.log("hello there __webpack_chunk_load__", x);
-
-// const {
-//   declareSubApp,
-//   ssrFeature,
-//   reduxFeature,
-//   reactRouterFeature,
-//   routingFeature,
-// } = require("./subapp-util");
+} from "subapp";
 
 function wooo() {
   return declareSubApp({
