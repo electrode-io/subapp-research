@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "h",
-    "outDir": "dist~es5~cjs~",
+    "outDir": "dist-node-esm",
     "lib": ["es2018"],
-    "module": "CommonJS",
+    "module": "ES2020",
     "esModuleInterop": false,
     "target": "ES2018",
     "preserveConstEnums": true,
@@ -16,5 +14,5 @@
     "alwaysStrict": true,
     "strictFunctionTypes": true
   },
-  "include": ["src"]
+  "include": ["src/node", "src/subapp"]
 }

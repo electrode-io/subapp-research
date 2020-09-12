@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "h",
-    "outDir": "dist~es5~cjs~",
+    "outDir": "dist-node-cjs",
     "lib": ["es2018"],
     "module": "CommonJS",
     "esModuleInterop": false,
@@ -16,5 +14,5 @@
     "alwaysStrict": true,
     "strictFunctionTypes": true
   },
-  "include": ["src"]
+  "include": ["src/node", "src/subapp"]
 }

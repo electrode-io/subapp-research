@@ -2,9 +2,10 @@
   "name": "ext-subapp",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist~es5~cjs~/index.js",
+  "module": "dist~es5~esm~/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build tsconfig.json tsconfig.esm.json",
     "test": "xrun xarc/test-only",
     "prepublishOnly": "xrun [[build, docs], xarc/check]",
     "docs": "xrun xarc/docs",
@@ -44,7 +45,9 @@
     "typescript": "^3.8.3"
   },
   "files": [
-    "dist"
+    "dist~es5~cjs~",
+    "dist~es5~esm~",
+    "src"
   ],
   "mocha": {
     "require": [

@@ -1,18 +1,14 @@
-import { render } from "react-dom";
-import * as React from "react";
+import { render, hydrate } from "react-dom";
+import { createElement } from "react";
 
-function test() {
-  return import(/* webpackChunkName: 'main-entry' */ "./declare-subapps");
-}
+import { extSubapp } from "ext-subapp";
+import { subAppReady } from "subapp";
+import { createComponent } from "./create-component";
 
-import "ext-subapp";
-
-test().then(() => {
+function app(Test1, Ext1) {
   // @ts-ignore
   const element = document.getElementById("app");
   console.log("subapps declared", element);
-  // @ts-ignore
-  const { Test1, Ext1 } = window._subapps;
   Promise.all([Test1.getModule(), Ext1.getModule()]).then(([test1, ext1]) => {
     console.log("test1 loaded");
     render(
@@ -23,4 +19,36 @@ test().then(() => {
       element
     );
   });
+}
+
+// Testing dynamic entry
+
+// function test() {
+//   return import(/* webpackChunkName: 'main-entry' */ "./declare-subapps");
+// }
+
+// test().then(() => {
+//   // @ts-ignore
+//   const { Test1, Ext1 } = window._subapps;
+//   return app(Test1, Ext1);
+// });
+
+// Testing static entry
+
+import { wooo } from "./declare-subapps";
+
+const woooSubApp = wooo();
+const WoooComponent = createComponent(woooSubApp, { ssr: true });
+const Ext1Component = createComponent(extSubapp, { ssr: true });
+
+subAppReady().then(() => {
+  // @ts-ignore
+  const element = document.getElementById("app");
+  hydrate(
+    <div>
+      <WoooComponent />
+      <Ext1Component />
+    </div>,
+    element
+  );
 });

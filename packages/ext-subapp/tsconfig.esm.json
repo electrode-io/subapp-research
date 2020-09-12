@@ -2,11 +2,11 @@
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "h",
-    "outDir": "dist~es5~cjs~",
+    "outDir": "dist~es5~esm~",
     "lib": ["es2018"],
-    "module": "CommonJS",
+    "module": "es2020",
     "esModuleInterop": false,
-    "target": "ES2018",
+    "target": "ES5",
     "preserveConstEnums": true,
     "sourceMap": true,
     "declaration": true,
@@ -14,7 +14,8 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "alwaysStrict": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "moduleResolution": "node"
   },
   "include": ["src"]
 }

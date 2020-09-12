@@ -5,12 +5,13 @@ import {
   reduxFeature,
   reactRouterFeature,
   routingFeature,
+  SubAppDef,
 } from "subapp";
 
-function wooo() {
+export function wooo(): SubAppDef {
   return declareSubApp({
     name: "Test1",
-    dir: __dirname,
+    __filename,
     getModule: () => import("./subapp1"),
     wantFeatures: [
       serverModule({}),
@@ -29,4 +30,8 @@ export const test2SubApp = declareSubApp({
 
 wooo();
 
-setTimeout(() => test2SubApp.getModule(), 5000);
+// setTimeout(() => test2SubApp.getModule(), 5000);
+
+// function getSubAppComponent(subapp, name = "Component") {
+//   return subapp.getModule().Component;
+// }

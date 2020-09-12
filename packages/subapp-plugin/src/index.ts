@@ -1,5 +1,6 @@
 import Fs = require("fs");
 import _ = require("lodash");
+import Path = require("path");
 
 const pluginName = "SubAppPlugin";
 
@@ -86,13 +87,44 @@ class SubAppWebpackPlugin {
   }
 
   updateAssets(assets) {
-    if (Object.keys(this._subApps).length > 0) {
-      const subapps = JSON.stringify(this._subApps, null, 2) + "\n";
-      assets["subapps.json"] = {
-        source: () => subapps,
-        size: () => subapps.length
-      };
+    let subappMeta = {};
+    const keys = Object.keys(this._subApps);
+    if (keys.length > 0) {
+      subappMeta = keys.reduce(
+        (acc, k) => {
+          acc[k] = _.pick(this._subApps[k], ["name", "source", "module"]);
+          return acc;
+        },
+        {
+          "//about": "Subapp meta information collected during webpack compile"
+        }
+      );
     }
+    const subapps = JSON.stringify(subappMeta, null, 2) + "\n";
+    assets["subapps.json"] = {
+      source: () => subapps,
+      size: () => subapps.length
+    };
+  }
+
+  findImportCall(ast) {
+    switch (ast.type) {
+      case "CallExpression":
+        const arg = _.get(ast, "arguments[0]", {});
+        if (ast.callee.type === "Import" && arg.type === "Literal") {
+          return arg.value;
+        }
+      case "ReturnStatement":
+        return this.findImportCall(ast.argument);
+      case "BlockStatement":
+        for (const n of ast.body) {
+          const res = this.findImportCall(n);
+          if (res) {
+            return res;
+          }
+        }
+    }
+    return undefined;
   }
 
   apply(compiler) {
@@ -107,7 +139,6 @@ class SubAppWebpackPlugin {
     };
 
     compiler.hooks.normalModuleFactory.tap(pluginName, factory => {
-      debugger;
       factory.hooks.parser
         .for("javascript/auto")
         .tap(pluginName, (parser, options) => {
@@ -129,10 +160,9 @@ class SubAppWebpackPlugin {
               const subapp = this._subApps[k];
               const gmod = subapp.getModule;
               if (range[0] >= gmod.range[0] && gmod.range[1] >= range[1]) {
+                const name = subapp.name.toLowerCase().replace(/ /g, "_");
                 return {
-                  options: {
-                    webpackChunkName: `subapp-${subapp.name.toLowerCase()}`
-                  },
+                  options: { webpackChunkName: `subapp-${name}` },
                   errors: []
                 };
               }
@@ -180,16 +210,20 @@ class SubAppWebpackPlugin {
             //       exist.loc
             //     )}`
             // );
-            const getModule = findGetModule(props);
+            const gm = findGetModule(props);
+
+            // try to figure out the module that's being imported for this subapp
+            // getModule function: () => import("./subapp-module")
+            // getModule function: function () { return import("./subapp-module") }
+            let mod = this.findImportCall(gm);
+
             this._subApps[nameVal] = {
               name: nameVal,
-              source: currentSource,
+              source: Path.relative(process.cwd(), currentSource),
               loc: expression.loc,
               range: expression.range,
-              getModule: {
-                loc: getModule.loc,
-                range: getModule.range
-              }
+              getModule: gm,
+              module: mod
             };
           });
 

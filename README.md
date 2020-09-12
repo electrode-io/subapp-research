@@ -35,16 +35,43 @@ Or bootstrap a specific package: `npx fynpo bootstrap --only subapp-plugin`, whi
 
 ### Testing the app
 
+#### Setup
+
 After packages are bootstrapped, go into `app` and run:
 
 ```
 cd app
 fyn
-npx webpack-dev-server
 ```
 
-Then load `https://localhost:8080/static`
+#### Development
 
-To build with webpack: `npx webpack`
+Start the app in dev mode with `webpack-dev-server`
+
+```
+fun dev
+```
+
+Then load `http://localhost:8080`
+
+> Note that this will not have SSR
+
+#### Server with SSR
+
+Run the app in server mode with SSR:
+
+```
+fun start
+```
+
+Then load `http://localhost:8080`
+
+### Build App
+
+To build app with webpack and tsc: `fun build`
+
+The assets are generated into `dist` directory and server code into `lib`.
+
+In particular, there will be a file `subapps.json`, which contains meta information of the subapps.
 
 [fyn]: https://www.npmjs.com/package/fyn

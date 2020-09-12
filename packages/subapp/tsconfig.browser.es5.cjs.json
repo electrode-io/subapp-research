@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "h",
-    "outDir": "dist~es5~cjs~",
-    "lib": ["es2018"],
+    "outDir": "dist-browser~es5~cjs~",
+    "lib": ["es2018", "DOM"],
     "module": "CommonJS",
     "esModuleInterop": false,
-    "target": "ES2018",
+    "target": "ES5",
     "preserveConstEnums": true,
     "sourceMap": true,
     "declaration": true,
-    "types": ["node"],
+    "types": [],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "alwaysStrict": true,
     "strictFunctionTypes": true
   },
-  "include": ["src"]
+  "include": ["src/browser", "src/subapp"]
 }

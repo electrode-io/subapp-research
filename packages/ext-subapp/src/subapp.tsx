@@ -1,4 +1,4 @@
-import * as React from "react";
+import { createElement as h } from "react";
 
 const Ext1 = () => {
   return (

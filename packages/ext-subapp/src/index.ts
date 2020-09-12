@@ -10,7 +10,7 @@ import {
 // export an external subapp
 export const extSubapp = declareSubApp({
   name: "Ext1",
-  dir: __dirname,
+  __filename,
   getModule: () => import("./subapp"),
   wantFeatures: [
     serverModule({}),
