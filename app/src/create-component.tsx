@@ -26,7 +26,17 @@ export class SubAppComponent extends Component {
 
   render() {
     if (this.state.module) {
-      return <this.state.module.Component {...this.props} />;
+      const resolveName = [this.subapp.resolveName, "subapp", "default"].find(
+        (x) => x && this.state.module[x]
+      );
+
+      const TheComponent = resolveName && this.state.module[resolveName]?.Component;
+
+      if (TheComponent) {
+        return <TheComponent {...this.props} />;
+      } else {
+        return <div>subapp {this.subapp.name}'s module did not export a SubApp</div>;
+      }
     }
 
     return this.loading;

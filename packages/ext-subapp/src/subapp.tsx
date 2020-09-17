@@ -1,4 +1,5 @@
 import { createElement as h } from "react";
+import { SubApp } from "subapp";
 
 const Ext1 = () => {
   return (
@@ -9,8 +10,7 @@ const Ext1 = () => {
   );
 };
 
-export const Component = Ext1;
-
-export const prepare = () => {
-  //
+export const subapp: SubApp<typeof Ext1> = {
+  Component: Ext1,
+  prepare: () => {}
 };

@@ -17,6 +17,16 @@ export type SubAppOptions = {
   getModule: Promise<any> | (() => Promise<any>);
 
   /**
+   * The name of the export for the subapp from the module.
+   *
+   * - default to `subapp`
+   * - then `default`
+   * - If it's `false`, then this subapp is treated as having no UI logic.
+   *
+   */
+  resolveName?: string | false;
+
+  /**
    * _optional_ webpack bundle name for the subapp
    *
    * - By default, xarc will create one like `"subapp-<name>"`
@@ -49,6 +59,24 @@ export type SubAppOptions = {
    *
    */
   __filename?: string;
+};
+
+/**
+ * subapp to be exported from the subapp module
+ */
+export type SubApp<ComponentType> = {
+  /**
+   * The component for this subapp.
+   *
+   * If it's undefined, then this subapp is treated to have no UI component
+   *
+   */
+  Component?: ComponentType;
+  /**
+   * The data prepare method for this subapp.
+   *
+   */
+  prepare?: () => void | Promise<any>;
 };
 
 export type SubAppDef = SubAppOptions & {

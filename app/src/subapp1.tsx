@@ -1,5 +1,7 @@
 import { createElement } from "react";
 
+import { SubApp } from "subapp";
+
 const Home = () => {
   return (
     <div>
@@ -9,8 +11,7 @@ const Home = () => {
   );
 };
 
-export const Component = Home;
-
-export const prepare = () => {
-  //
+export const subapp: SubApp<typeof Home> = {
+  Component: Home,
+  prepare: () => {},
 };
