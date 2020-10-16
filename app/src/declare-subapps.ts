@@ -8,6 +8,8 @@ import {
   SubAppDef,
 } from "subapp";
 
+import * as subapp from "subapp";
+
 export function wooo(): SubAppDef {
   return declareSubApp({
     name: "Test1",
@@ -23,7 +25,7 @@ export function wooo(): SubAppDef {
   });
 }
 
-export const test2SubApp = declareSubApp({
+export const test2SubApp = subapp.declareSubApp({
   name: "Test2",
   getModule: () => import("./subapp2"),
 });

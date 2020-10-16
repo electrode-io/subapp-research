@@ -176,7 +176,7 @@ class SubAppWebpackPlugin {
             return `${source}:${loc.start.line}:${loc.start.column + 1}`;
           };
 
-          parser.hooks.call.for(apiName).tap(pluginName, expression => {
+          const parseCall = expression => {
             const currentSource = _.get(parser, "state.current.resource", "");
             const props = _.get(expression, "arguments[0].properties");
             const cw = () => where(noCwd(currentSource), expression.loc);
@@ -225,7 +225,20 @@ class SubAppWebpackPlugin {
               getModule: gm,
               module: mod
             };
-          });
+          };
+
+          parser.hooks.call.for(apiName).tap(pluginName, parseCall);
+
+          parser.hooks.evaluate
+            .for("CallExpression")
+            .tap({ name: pluginName, before: "Parser" }, expression => {
+              const calleeName = _.get(expression, "callee.property.name");
+              if (apiName === calleeName) {
+                return parseCall(expression);
+              }
+
+              return undefined;
+            });
 
           parser.hooks.evaluate
             .for("Identifier")
