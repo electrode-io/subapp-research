@@ -1,7 +1,5 @@
 const Path = require("path");
-import { SubAppWebpackPlugin4 as SubAppWebpackPlugin } from "subapp-plugin";
-const { JsonpScriptSrcPlugin } = require("./src/jsonp-script-src-plugin");
-const { HotModuleReplacementPlugin } = require("webpack");
+import { SubAppWebpackPlugin5 as SubAppWebpackPlugin } from "subapp-plugin";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
@@ -20,13 +18,11 @@ module.exports = {
   // must set this to false for the custom SourceMapDevToolPlugin config to work
   devtool: false,
   plugins: [
-    new HotModuleReplacementPlugin(),
     new SourceMapDevToolPlugin({
       filename: "map/[file].map",
       append: `\n//# sourceMappingURL=[url]`,
     }),
-    new SubAppWebpackPlugin({ webpackVersion: 4 }),
-    new JsonpScriptSrcPlugin(),
+    new SubAppWebpackPlugin({ webpackVersion: 5 }),
   ],
   module: {
     rules: [

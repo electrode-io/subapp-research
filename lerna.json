@@ -1,0 +1,10 @@
+{
+  "command": {
+    "bootstrap": {
+      "ignore": [],
+      "npmClientArgs": [],
+      "npmRunScripts": ["build"]
+    }
+  },
+  "fynpo": {}
+}

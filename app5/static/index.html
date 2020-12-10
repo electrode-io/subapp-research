@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script>
+      window.__webpack_get_script_src__ = function (chunkId, publicPath, src) {
+        console.log("webpack jsonp getting", chunkId, publicPath, src);
+        return src;
+      };
+    </script>
+    <script src="/js/main.js"></script>
+  </head>
+  <body>
+    <h1>hello</h1>
+    <div id="app">
+      {{SSR_CONTENT}}
+    </div>
+  </body>
+</html>
